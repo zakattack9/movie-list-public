@@ -54,9 +54,32 @@ provider:
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
+# yml path for multiple lambdas ( https://github.com/serverless/serverless/issues/2372 )
 functions:
-  hello:
-    handler: handler.hello
+  get:
+    handler: lambdas/get.get
+    events:
+      - http:
+          path: get
+          method: get
+  post:
+    handler: lambdas/post.post
+    events:
+      - http:
+          path: post
+          method: post
+  update:
+    handler: lambdas/update.update
+    events:
+      - http:
+          path: update
+          method: update
+  delete:
+    handler: lambdas/delete.delete
+    evetns:
+      - http:
+          path: delete
+          method: delete
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
