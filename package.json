@@ -1,0 +1,25 @@
+{
+  "name": "movie-list-public",
+  "version": "1.0.0",
+  "description": "[Intermediate] AWS, S3, Api-Gatway, Lambda, RDS, Serverless - Intro full stack project using amazon rds",
+  "main": "handler.js",
+  "dependencies": {
+    "pg": "^7.4.0",
+    "pg-pool": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zakattack9/movie-list-public.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zakattack9/movie-list-public/issues"
+  },
+  "homepage": "https://github.com/zakattack9/movie-list-public#readme"
+}
