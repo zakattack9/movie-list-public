@@ -1,4 +1,5 @@
 'use strict';
+//https://medium.com/dailyjs/how-to-build-a-node-js-api-using-postgres-lambda-and-api-gateway-3211a4570cea
 
 module.exports.post = (event, context, callback) => {
   const response = {
