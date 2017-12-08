@@ -63,11 +63,10 @@ functions:
           path: get
           method: get
   post:
-    integration: lambda
-         request:
-            passThrough: WHEN_NO_TEMPLATES
-            template:
-              application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
+    request:
+      passThrough: WHEN_NO_TEMPLATES
+      template:
+        application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
     handler: lambdas/post.post
     events:
       - http:

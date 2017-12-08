@@ -2,7 +2,7 @@
 
 const Pool = require('pg-pool'); //require in pg-pool packages
 const config = require('./config.json');
-const { table, host, database, user, password, port } = config //object destructuring
+const {host, database, table, user, password, port, idleTimeoutMillis} = config; //object destructuring
 const Client = new Pool ({ //creating template
   host,
   database,
@@ -12,19 +12,19 @@ const Client = new Pool ({ //creating template
   idleTimeoutMillis : 1000
 })
 
-let getAllMovies = "SELECT" * "FROM" + table + "ORDER BY id ASC"
+let grabMovies = "SELECT * FROM " + table + " ORDER BY id ASC";
 
 module.exports.get = (event, context, callback) => {
 
   Client.connect() //connect to database
   .then(client => {
     console.log('connected to DB ' + Client.options.database)
-    cliebt.release()
-    return client.query(getAllMovies)
+    client.release()
+    return client.query(grabMovies)
   })
-  .then(result => {
+/*  .then(result => {
 
-  })
+  })*/
 
   const response = {
     statusCode: 200,

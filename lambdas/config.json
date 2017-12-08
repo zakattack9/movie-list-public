@@ -1,6 +1,6 @@
 {
 	"host" : "zak.cb9co1xxtizk.us-west-2.rds.amazonaws.com",
-	"database" : "postgres",
+	"database" : "movies_zak",
 	"table" : "movies_zak",
 	"user" : "zakattack9",
 	"password" : "Zakattacks9!",
