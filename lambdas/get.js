@@ -1,6 +1,31 @@
 'use strict';
 
+const Pool = require('pg-pool'); //require in pg-pool packages
+const config = require('./config.json');
+const { table, host, database, user, password, port } = config //object destructuring
+const Client = new Pool ({ //creating template
+  host,
+  database,
+  user,
+  password,
+  port,
+  idleTimeoutMillis : 1000
+})
+
+let getAllMovies = "SELECT" * "FROM" + table + "ORDER BY id ASC"
+
 module.exports.get = (event, context, callback) => {
+
+  Client.connect() //connect to database
+  .then(client => {
+    console.log('connected to DB ' + Client.options.database)
+    cliebt.release()
+    return client.query(getAllMovies)
+  })
+  .then(result => {
+
+  })
+
   const response = {
     statusCode: 200,
     body: JSON.stringify({

@@ -1,0 +1,9 @@
+{
+	"host" : "zak.cb9co1xxtizk.us-west-2.rds.amazonaws.com",
+	"database" : "postgres",
+	"table" : "movies_zak",
+	"user" : "zakattack9",
+	"password" : "Zakattacks9!",
+	"port" : 5432,
+	"idleTimeoutMillis" : 1000
+}
