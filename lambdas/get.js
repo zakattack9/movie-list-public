@@ -10,31 +10,34 @@ const Client = new Pool ({ //creating template
   password,
   port,
   idleTimeoutMillis : 1000
-})
+});
 
-let grabMovies = "SELECT * FROM " + table + " ORDER BY id ASC";
-
+let grabMovies = "SELECT * FROM " + table + " ORDER BY id ASC;";
+// https://node-postgres.com/features/pooling
 module.exports.get = (event, context, callback) => {
 
   Client.connect() //connect to database
-  .then(client => {
-    console.log('connected to DB ' + Client.options.database)
-    client.release()
-    return client.query(grabMovies)
-  })
-/*  .then(result => {
+    .then(client => {
+      console.log('connected to DB ' + Client.options.database + ' ready to GET')
+      client.release();
+      return client.query(grabMovies);
+    })
+    .then(res => {
+      console.log(res.rows);
+    })
+    .catch(err => {
+      console.log(err.stack);
+    })
 
-  })*/
-
-  const response = {
+  const get = {
     statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
+    body: {
+      message: "Success!",
+      //input: event,
+    }
   };
 
-  callback(null, response);
+  callback(null, get);
 
   // Use this code if you don't use the http event with the LAMBDA-PROXY integration
   // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
