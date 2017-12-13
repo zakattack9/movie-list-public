@@ -16,7 +16,7 @@ const testData = require('../test-data/post.json');
 console.log(testData);
 
 let addMovies = `INSERT INTO ${table} VALUES (${testData.id}, '${testData.title}', ${testData.year}, '${testData.genre}');`;
-console.log(addMovies)
+//console.log(addMovies)
 
 module.exports.post = (event, context, callback) => {
   Client.connect() //connect to database
@@ -26,22 +26,24 @@ module.exports.post = (event, context, callback) => {
       return client.query(addMovies);
     })
     .then(res => {
-      console.log(res);
+      const response = {
+        statusCode: 200,
+        body: {
+          message: res,
+          //input: event,
+        }
+      }
+      callback(null, response);
     })
     .catch(err => {
       console.log(err.stack);
+      const response = {
+        statusCode: 500,
+        body: {
+          message: err.stack,
+          //input: event,
+        }
+      }
+      callback(null, response);
     })
-
-  const post = {
-    statusCode: 200,
-    body: {
-      message: 'Ready to POST!',
-      //input: event,
-    },
-  };
-
-  callback(null, post);
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
 };
