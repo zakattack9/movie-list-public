@@ -60,8 +60,18 @@ functions:
     handler: lambdas/get.get
     events:
       - http:
-          path: get
+          path: get #path in url
           method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
   post:
     request:
       passThrough: WHEN_NO_TEMPLATES
@@ -72,18 +82,48 @@ functions:
       - http:
           path: post
           method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
   update:
     handler: lambdas/update.update
     events:
       - http:
-          path: update
-          method: update
+          path: put
+          method: put
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
   delete:
     handler: lambdas/delete.delete
-    evetns:
+    events:
       - http:
           path: delete
           method: delete
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

@@ -25,6 +25,10 @@ module.exports.get = (event, context, callback) => {
       //console.log(res.rows);
       const response = {
         statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true
+        },
         body: {
           message: JSON.stringify(res.rows),
           //input: event,

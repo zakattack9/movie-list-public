@@ -27,6 +27,10 @@ module.exports.update = (event, context, callback) => {
     .then(res => {
       const response = {
         statusCode: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true
+        },
         body: {
           message: res,
           //input: event,
