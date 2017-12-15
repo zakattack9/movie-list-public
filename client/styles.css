@@ -1,0 +1,22 @@
+body, html {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	background-color: khaki;
+	margin: 0;
+	height: 60px;
+	text-align: center;
+	line-height: 60px;
+}
+
+#get, #post, #put, #delete {
+	width: 25%;
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	background-color: cadetblue;
+	border: none;
+}

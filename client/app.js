@@ -10,8 +10,12 @@ $('#get').click(function(){
 		url: "https://1zguq18qmj.execute-api.us-west-2.amazonaws.com/dev/get",
 		method: 'GET',
 		"Content-Type": "application/json",
-		success: data => console.log(data),
-		dataType: 'JSON'
+	})
+	.done((response) => {
+		console.log(response);
+	})
+	.fail((err) => {
+		console.log('error', err);
 	})
 });
 
