@@ -22,17 +22,15 @@ module.exports.get = (event, context, callback) => {
       return client.query(grabMovies);
     })
     .then(res => {
-      //console.log(res.rows);
+      //console.log(data.rows);
       const response = {
         statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Methods" : "*"
         },
-        body: {
-          message: JSON.stringify(res.rows),
-          //input: event,
-        }
+        body: JSON.stringify(res.rows)
       }
       callback(null, response);
     })
@@ -40,6 +38,10 @@ module.exports.get = (event, context, callback) => {
       console.log(err.stack);
       const response = {
         statusCode: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
+        },
         body: {
           message: err.stack,
           //input: event,

@@ -5,7 +5,8 @@ body, html {
 }
 
 h1 {
-	background-color: khaki;
+	background-color: #fefacd;
+	color: #80ced6;
 	margin: 0;
 	height: 60px;
 	text-align: center;
@@ -14,9 +15,21 @@ h1 {
 
 #get, #post, #put, #delete {
 	width: 25%;
+	height: 50px;
 	margin: 0;
 	padding: 0;
 	display: inline-block;
-	background-color: cadetblue;
-	border: none;
+	float: left;
+	background-color: #618685;
+	color: white;
+	border: lightblue solid 5px;
+	outline: none;
+	transition: 0.2s;
+}
+
+#get:hover, #post:hover, #put:hover, #delete:hover {
+	background-color: #7a9f9d;
+	outline: 10px;
+	transition: 0.4s;
+	border: lightblue solid 10px;
 }
