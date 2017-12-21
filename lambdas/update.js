@@ -31,10 +31,7 @@ module.exports.update = (event, context, callback) => {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": true
         },
-        body: {
-          message: res,
-          //input: event,
-        }
+        body: JSON.stringify(res)
       }
       callback(null, response);
     })
@@ -42,10 +39,7 @@ module.exports.update = (event, context, callback) => {
       console.log(err.stack);
       const response = {
         statusCode: 500,
-        body: {
-          message: err.stack,
-          //input: event,
-        }
+        body: JSON.stringify(err.stack)
       }
       callback(null, response);
     })

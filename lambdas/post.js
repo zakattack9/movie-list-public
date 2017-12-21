@@ -12,30 +12,33 @@ const Client = new Pool ({ //creating template
   port,
   idleTimeoutMillis : 1000
 });
-const testData = require('../test-data/post.json');
-console.log(testData);
+//const testData = require('../test-data/post.json');
+//console.log(testData);
 
-let addMovies = `INSERT INTO ${table} VALUES (${testData.id}, '${testData.title}', ${testData.year}, '${testData.genre}');`;
 //console.log(addMovies)
 
 module.exports.post = (event, context, callback) => {
+  console.log("event", event.body)
+  let parseBody = JSON.parse(event.body)
+  let {title, year, genre} = parseBody;
+  console.log('yeaer', year)
+
+  let addMovies = "INSERT INTO " + config.table + " VALUES(default, $1, $2, $3)"
+  console.log("Event", event); //event.body
   Client.connect() //connect to database
     .then(client => {
       console.log('connected to DB ' + Client.options.database + ' ready to POST')
       client.release();
-      return client.query(addMovies);
+      return client.query(addMovies, [title, year, genre]);
     })
     .then(res => {
       const response = {
         statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true
+          "Access-Control-Allow-Credentials": true,
         },
-        body: {
-          message: res,
-          //input: event,
-        }
+        body: JSON.stringify(res)
       }
       callback(null, response);
     })
@@ -43,10 +46,11 @@ module.exports.post = (event, context, callback) => {
       console.log(err.stack);
       const response = {
         statusCode: 500,
-        body: {
-          message: err.stack,
-          //input: event,
-        }
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
+        },
+        body: JSON.stringify(err.stack)
       }
       callback(null, response);
     })

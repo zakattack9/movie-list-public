@@ -42,10 +42,7 @@ module.exports.get = (event, context, callback) => {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Credentials": true,
         },
-        body: {
-          message: err.stack,
-          //input: event,
-        }
+        body: JSON.stringify(err.stack)
       }
       callback(null, response);
     })
