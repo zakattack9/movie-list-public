@@ -11,13 +11,20 @@ const Client = new Pool ({ //creating template
   port,
   idleTimeoutMillis : 1000
 });
-const testData = require('../test-data/update.json');
-console.log(testData);
 
-let updateMovies = `UPDATE ${table} SET TITLE = '${testData.title}', YEAR = ${testData.year}, GENRE = '${testData.genre}' WHERE ID = ${testData.id};`;
+/*const testData = require('../test-data/update.json');
+console.log(testData);*/
+
 
 
 module.exports.update = (event, context, callback) => {
+  console.log("event", event.body)
+  let parseBody = JSON.parse(event.body)
+  let {id, title, year, genre} = parseBody;
+  console.log('yeaer', year)
+
+  let updateMovies = `UPDATE ${config.table} SET TITLE = '$1', YEAR = $2, GENRE = '$3' WHERE ID = $4;`;
+
   Client.connect() //connect to database
     .then(client => {
       console.log('connected to DB ' + Client.options.database + ' ready to UPDATE')
@@ -29,7 +36,7 @@ module.exports.update = (event, context, callback) => {
         statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true
+          "Access-Control-Allow-Credentials": true,
         },
         body: JSON.stringify(res)
       }
@@ -39,6 +46,10 @@ module.exports.update = (event, context, callback) => {
       console.log(err.stack);
       const response = {
         statusCode: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
+        },
         body: JSON.stringify(err.stack)
       }
       callback(null, response);

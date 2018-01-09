@@ -11,8 +11,9 @@ const Client = new Pool ({ //creating template
   port,
   idleTimeoutMillis : 1000
 });
-const testData = require('../test-data/delete.json');
-console.log(testData);
+
+/*const testData = require('../test-data/delete.json');
+console.log(testData);*/
 
 let deleteMovies = `DELETE FROM ${table} WHERE ID = ${testData.id};`;
 
@@ -28,7 +29,8 @@ module.exports.delete = (event, context, callback) => {
         statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true
+          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Methods" : "*"
         },
         body: JSON.stringify(res)
       }
@@ -38,6 +40,10 @@ module.exports.delete = (event, context, callback) => {
       console.log(err.stack);
       const response = {
         statusCode: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Credentials": true,
+        },
         body: JSON.stringify(err.stack)
       }
       callback(null, response);

@@ -5,6 +5,10 @@ body, html {
 	padding: 0;
 }
 
+body {
+	overflow-y: scroll;
+}
+
 h1 {
 	font-family: 'Pacifico', cursive;
 	background-color: #fefacd;
@@ -45,24 +49,49 @@ h1 {
 
 #allMovies {
 	height: 100%;
-	display: flex;
+	width: 100%;
+/*display: flex;
 	flex-flow: row wrap;
-	justify-content: center;
+	justify-content: center;*/
 }
 
+/* https://stackoverflow.com/questions/20456694/grid-of-responsive-squares */
 .movie {
 	background-color: #80ced6;
 	font-family: 'Varela Round', sans-serif;
-	font-size: 20px;
-	height: 100px;
+	font-size: 1.2em;
+  float: left;
+  position: relative;
+  width: 30%;
+  padding-bottom: 23%; /* = width for a 1:1 aspect ratio */
+  margin:1.66%;
+  overflow:hidden;
+/*height: 100px;
 	border: solid white 5px;
 	justify-content: center;
 	width: 25%;
-	height: 33%;
+	height: 50%;
 	padding: 25px;
-	flex-grow: 1;
+	flex-grow: 1;*/
+	transition: 0.2s;
 }
 
-#input {
+.movie:hover {
+	transform: scale(0.99, 0.99);
+	transition: 0.4s;
+}
+
+.movieAdd {
+	padding-bottom: 30.2%;
+}
+
+.content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding: 10% 5%;
+}
+
+.input, .newInput{
 	outline: none
 }
