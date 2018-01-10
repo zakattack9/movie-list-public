@@ -18,12 +18,11 @@ const Client = new Pool ({ //creating template
 //console.log(addMovies)
 
 module.exports.post = (event, context, callback) => {
-  console.log("event", event);
-  let parseBody = JSON.parse(event.body);
-  let {title, year, genre} = parseBody;
+  console.log("hello", event);
+  let {title, year, genre} = event;
   console.log('yeaer', year)
 
-  let addMovies = "INSERT INTO " + config.table + " VALUES(default, $1, $2, $3)"
+  let addMovies = "INSERT INTO " + table + " VALUES(default, $1, $2, $3)"
   console.log("Event", event); //event.body
   Client.connect() //connect to database
     .then(client => {

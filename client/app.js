@@ -85,10 +85,10 @@ function addMovie(){
 		url: "https://1zguq18qmj.execute-api.us-west-2.amazonaws.com/dev/post",
 		method: 'POST',
 		contentType: "application/json; charset=utf-8",
-		dataType: 'json',
+		dataType: 'JSON',
 		data: JSON.stringify({
 			"title" : $('.input')[0].value,
-			"year" : $('.input')[1].value,
+			"year" : parseInt($('.input')[1].value),
 			"genre" : $('.input')[2].value
 		})
 	})
