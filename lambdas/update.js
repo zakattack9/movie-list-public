@@ -21,15 +21,15 @@ module.exports.update = (event, context, callback) => {
   console.log("event", event.body)
   let parseBody = JSON.parse(event.body)
   let {id, title, year, genre} = parseBody;
-  console.log('yeaer', year)
+  console.log('ID', id, 'TITLE', title, 'YEAR', year, 'GENRE', genre);
 
-  let updateMovies = `UPDATE ${config.table} SET TITLE = '$1', YEAR = $2, GENRE = '$3' WHERE ID = $4;`;
+  let updateMovies = "UPDATE " + table + " SET TITLE = " + "$1, " + "YEAR = " + "$2, " + "genre = " + "$3 " + "WHERE ID = " + "$4";
 
   Client.connect() //connect to database
     .then(client => {
       console.log('connected to DB ' + Client.options.database + ' ready to UPDATE')
       client.release();
-      return client.query(updateMovies);
+      return client.query(updateMovies, [title, year, genre, id]);
     })
     .then(res => {
       const response = {

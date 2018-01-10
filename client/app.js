@@ -18,10 +18,12 @@ function getMovies(){
 		response.map(currVal => $('#allMovies').hide().fadeIn(500).append(
 			`
 			<div class="movie">
-				ID: ${currVal.id}<br/>
-				Title: ${currVal.title}<br/>
-				Year: ${currVal.year}<br/>
-				Genre: ${currVal.genre}<br/>
+				<div class="content">
+					ID: ${currVal.id}<br/>
+					Title: ${currVal.title}<br/>
+					Year: ${currVal.year}<br/>
+					Genre: ${currVal.genre}<br/>
+				</div>
 			</div>
 			`
 		));
@@ -63,7 +65,7 @@ $('#get').click(function(){
 $('#post').click(function(){
 	$('#allMovies').prepend(
 			`
-			<div class="movie movieAdd" style="background-color: #7a9f9d">
+			<div class="movie" style="background-color: #7a9f9d">
 				<div class="content">
 					Title: <input type="text" class="input" value=""><br/>
 					Year: <input type="text" class="input" value=""><br/>
@@ -86,7 +88,7 @@ function addMovie(){
 		dataType: 'json',
 		data: JSON.stringify({
 			"title" : $('.input')[0].value,
-			"year" : parseInt($('.input')[1].value),
+			"year" : $('.input')[1].value,
 			"genre" : $('.input')[2].value
 		})
 	})
@@ -100,7 +102,7 @@ function addMovie(){
 $('#put').click(function(){
 	$('#allMovies').prepend(
 			`
-			<div class="movie movieAdd" style="background-color: #7a9f9d">
+			<div class="movie" style="background-color: #7a9f9d">
 				<div class="content">
 					ID: <input type="text" class="newInput" value=""><br/>
 					New Title: <input type="text" class="newInput" value=""><br/>
@@ -123,20 +125,43 @@ function updateMovie(){
 		contentType: "application/json; charset=utf-8",
 		dataType: 'JSON',
 		data: JSON.stringify({
-			"id" : parseInt($('.newInput')[0].value),
+			"id" : $('.newInput')[0].value,
 			"title" : $('.newInput')[1].value,
-			"year" : parseInt($('.newInput')[2].value),
+			"year" : $('.newInput')[2].value,
 			"genre" : $('.newInput')[3].value
 		})
 	})
+
+	setTimeout(() => {$('#allMovies').empty()}, 150);
+	setTimeout(() => {getMovies()}, 200);	
 }
 
 // DELETE MOVIE
 $('#delete').click(function(){
+	$('#allMovies').prepend(
+			`
+			<div class="movie" style="background-color: #7a9f9d">
+				<div class="content">
+					ID: <input type="text" class="newInput" value=""><br/>
+					<button onclick="deleteMovie();">Submit</button>
+				</div>
+			</div>
+			`
+	);
+});
+
+// SUBMIT DELETED MOVIE
+function deleteMovie(){
 	$.ajax({
 		url: "https://1zguq18qmj.execute-api.us-west-2.amazonaws.com/dev/delete",
 		method: 'DELETE',
-		success: data => data.message.Contents.map(currVal => generateImg(`https://s3-us-west-2.amazonaws.com/photo-bucket-tmp-prjct/${currVal.Key}`)),
-		dataType: 'JSON'
+		contentType: "application/json; charset=utf-8",
+		dataType: 'JSON',
+		data: JSON.stringify({
+			"id" : $('.newInput')[0].value,
+		})
 	})
-});
+
+	setTimeout(() => {$('#allMovies').empty()}, 150);
+	setTimeout(() => {getMovies()}, 200);	
+}

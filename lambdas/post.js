@@ -18,8 +18,8 @@ const Client = new Pool ({ //creating template
 //console.log(addMovies)
 
 module.exports.post = (event, context, callback) => {
-  console.log("event", event.body)
-  let parseBody = JSON.parse(event.body)
+  console.log("event", event);
+  let parseBody = JSON.parse(event.body);
   let {title, year, genre} = parseBody;
   console.log('yeaer', year)
 

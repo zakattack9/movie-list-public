@@ -15,22 +15,27 @@ const Client = new Pool ({ //creating template
 /*const testData = require('../test-data/delete.json');
 console.log(testData);*/
 
-let deleteMovies = `DELETE FROM ${table} WHERE ID = ${testData.id};`;
 
 module.exports.delete = (event, context, callback) => {
+  console.log("event", event.body)
+  let parseBody = JSON.parse(event.body)
+  let {id} = parseBody;
+  console.log('ID', id);
+
+  let deleteMovies = "DELETE FROM " + table + " WHERE ID = " + "$1;";
+  
   Client.connect() //connect to database
     .then(client => {
       console.log('connected to DB ' + Client.options.database + ' ready to DELETE')
       client.release();
-      return client.query(deleteMovies);
+      return client.query(deleteMovies, [id]);
     })
     .then(res => {
       const response = {
         statusCode: 200,
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true,
-          "Access-Control-Allow-Methods" : "*"
+          "Access-Control-Allow-Credentials": true
         },
         body: JSON.stringify(res)
       }
@@ -42,7 +47,7 @@ module.exports.delete = (event, context, callback) => {
         statusCode: 500,
         headers: {
           "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Credentials": true,
+          "Access-Control-Allow-Credentials": true
         },
         body: JSON.stringify(err.stack)
       }
