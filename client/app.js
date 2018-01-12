@@ -18,9 +18,9 @@ function getMovies(){
 		response.map(currVal => $('#allMovies').hide().fadeIn(500).append(
 			`
 			<div class="movie">
-				<div class="content">
+				<div class="content" onclick="movieSearch(this);">
 					ID: ${currVal.id}<br/>
-					Title: ${currVal.title}<br/>
+					Title: <span>${currVal.title}</span><br/>
 					Year: ${currVal.year}<br/>
 					Genre: ${currVal.genre}<br/>
 				</div>
@@ -46,9 +46,9 @@ $('#get').click(function(){
 		response.map(currVal => $('#allMovies').hide().fadeIn(500).append(
 			`
 			<div class="movie">
-				<div class="content">
+				<div class="content" onclick="movieSearch(this);">
 					ID: ${currVal.id}<br/>
-					Title: ${currVal.title}<br/>
+					Title: <span>${currVal.title}</span><br/>
 					Year: ${currVal.year}<br/>
 					Genre: ${currVal.genre}<br/>
 				</div>
@@ -65,7 +65,7 @@ $('#get').click(function(){
 $('#post').click(function(){
 	$('#allMovies').prepend(
 			`
-			<div class="movie" style="background-color: #7a9f9d">
+			<div class="movie" id="inputAnim" style="background-color: #7a9f9d">
 				<div class="content">
 					Title: <input type="text" class="input" value=""><br/>
 					Year: <input type="text" class="input" value=""><br/>
@@ -75,6 +75,8 @@ $('#post').click(function(){
 			</div>
 			`
 	);
+
+	$('#inputAnim').animate({width: "30%"}, 100, "linear");
 });
 
 // SUBMIT MOVIE
@@ -102,7 +104,7 @@ function addMovie(){
 $('#put').click(function(){
 	$('#allMovies').prepend(
 			`
-			<div class="movie" style="background-color: #7a9f9d">
+			<div class="movie" id="inputAnim" style="background-color: #7a9f9d">
 				<div class="content">
 					ID: <input type="text" class="newInput" value=""><br/>
 					New Title: <input type="text" class="newInput" value=""><br/>
@@ -113,6 +115,8 @@ $('#put').click(function(){
 			</div>
 			`
 	);
+
+	$('#inputAnim').animate({width: "30%"}, 100, "linear");
 });
 
 // SUBMIT MOVIE UPDATE
@@ -140,7 +144,7 @@ function updateMovie(){
 $('#delete').click(function(){
 	$('#allMovies').prepend(
 			`
-			<div class="movie" style="background-color: #7a9f9d">
+			<div class="movie" id="inputAnim" style="background-color: #7a9f9d">
 				<div class="content">
 					ID: <input type="text" class="newInput" value=""><br/>
 					<button onclick="deleteMovie();">Submit</button>
@@ -148,6 +152,8 @@ $('#delete').click(function(){
 			</div>
 			`
 	);
+
+	$('#inputAnim').animate({width: "30%"}, 100, "linear");
 });
 
 // SUBMIT DELETED MOVIE
@@ -164,4 +170,10 @@ function deleteMovie(){
 
 	setTimeout(() => {$('#allMovies').empty()}, 150);
 	setTimeout(() => {getMovies()}, 200);	
+}
+
+// OPEN SEARCHED MOVIE
+function movieSearch(e){
+	var movieTitle = e.getElementsByTagName('span')[0].textContent;
+	window.open('http://google.com/search?q=' + movieTitle);
 }
